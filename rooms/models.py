@@ -79,8 +79,11 @@ class Room(core_models.TimeStampedModel):
     check_in = models.TimeField()
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
+
     ## Room 모델을 User에 연결 by host key
-    host = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    host = models.ForeignKey(
+        "users.User", related_name="rooms", on_delete=models.CASCADE
+    )
     room_type = models.ForeignKey("RoomType", on_delete=models.SET_NULL, null=True)
     amenities = models.ManyToManyField("Amenity", blank=True)
     facilities = models.ManyToManyField("Facility", blank=True)
